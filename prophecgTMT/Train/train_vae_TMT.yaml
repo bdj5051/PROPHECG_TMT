@@ -1,0 +1,42 @@
+paths:
+  # raw_data: "/home/ubuntu/djboo/FactorECG/TMT/Datasets/TMT_waveform"
+  stage1_data: "s3://dryou-workspace/Users/dachungBoo/Spark/train/STAGE1/"
+  checkpoints: "/home/ubuntu/djboo/FactorECG/VAE/"
+  training_labels: "/home/ubuntu/djboo/FactorECG/VAE/TMT/240208_yuhs_train.csv"
+  validation_labels: "/home/ubuntu/djboo/FactorECG/VAE/TMT/240208_yuhs_val.csv"
+  pretrain_checkpoint: "/home/ubuntu/djboo/FactorECG/VAE/"
+training:
+  learning_rate: 0.001
+  batch_size: 128
+  epochs: 50
+  pretrain: false
+  tags:
+    - TMT run
+  project_name: FactorECG
+  project1_name: FactorECG-stage1
+  project2_name: FactorECG-stage2
+  project3_name: FactorECG-stage3
+  project4_name: FactorECG-stage4
+  projectR_name: FactorECG-stageR
+  projectS_name: FactorECG-sitting
+encoder:
+  in_channels: 12
+  channels: 128
+  depth: 5
+  reduced_size: 64
+  out_channels: 32
+  kernel_size: 5
+  dropout: 0.3
+  softplus_eps: 1.0e-4
+  sd_output: true
+decoder:
+  k: 32
+  width: 300
+  in_channels: 64
+  channels: 128
+  depth: 5
+  out_channels: 12
+  kernel_size: 5
+  gaussian_out: true
+  softplus_eps: 1.0e-4
+  dropout: 0.
